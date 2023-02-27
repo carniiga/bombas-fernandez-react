@@ -1,24 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+
+import * as userActions from "./redux/user/user-actions"
+import Routes from "./routes/Routes";
+import { GlobalStyles } from "./styles/GlobalStyles";
+import UserModal from './components/userModal/UserModal';
+import { auth, createUserProfileDocument } from "./firebase/firebase-utils";
+import { onSnapshot } from "firebase/firestore";
+import { useDispatch } from "react-redux";
+import { onAuthStateChanged } from "firebase/auth";
+import { useEffect } from "react";
+import Footer from "./components/footer/Footer";
+
+
+function onAuthStateChange(cb, action) {
+  onAuthStateChanged(auth, async userAuth => {
+    if (userAuth) {
+      const userRef = await createUserProfileDocument(userAuth);
+
+      onSnapshot(userRef, snapShot =>
+        cb(action({ id: snapShot.id, ...snapShot.data() }))
+      );
+    } else {
+      cb(action(null));
+    }
+  });
+}
 
 function App() {
+  const dispatch = useDispatch()
+ useEffect(() => {
+  const unsuscribe = onAuthStateChange(dispatch, userActions.setCurrentUser);
+ 
+   return () => {
+    unsuscribe();
+   }
+ }, [dispatch])
+ 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <UserModal />
+      <GlobalStyles />
+      <Routes />
+      <Footer/>
+    </>
   );
 }
 
