@@ -8,8 +8,8 @@ import Product from '../products/Product'
 import { forwardRef } from 'react'
 
 //en este componente se va a manejar las categorias y los productos . 
-export const Categorias =  forwardRef ((props , ref) => {
-
+export const Categorias =  forwardRef((props , ref) => {
+  
   //accedemos al estado global de las categorias. 
   const categories = useSelector(state => state.categories.categories);
  

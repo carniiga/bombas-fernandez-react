@@ -4,7 +4,6 @@ import storage from "redux-persist/lib/storage";
 import { cartReducer } from "./cart/cart-reducer";
 import categoriesReducer from "./categorias/categorias-reducer";
 import productsReducer from "./productos-reducer/producto-reducer";
-import userReducer from "./user/user-reducer";
 import userDetailReducer from "./userDetails/userDetails-reducer";
 // aca  se van a almacenar los datos en el local storage, tanto carrito de compras como toda la informacion del user. 
 const persistConfig = {
@@ -18,7 +17,7 @@ const rootReducer = combineReducers({
     categories : categoriesReducer,
     products : productsReducer,
     cart :  cartReducer ,
-    user : userReducer,
+    
     userDetail : userDetailReducer,
    
 });

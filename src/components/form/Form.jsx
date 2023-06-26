@@ -102,7 +102,7 @@ const Form = () => {
             <LoginGoogleContainer>
               <LoginGoogle type="button" onClick={signInWithGoogle} />
             </LoginGoogleContainer>
-            <ButtonLogin >Iniciar Sesion</ButtonLogin>
+            <ButtonLogin onClick={() => navigate("/")}>Iniciar Sesion</ButtonLogin>
           </FormContainer>
         )}
       </Formik>

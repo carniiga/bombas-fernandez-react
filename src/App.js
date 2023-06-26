@@ -1,14 +1,17 @@
 
-import * as userActions from "./redux/user/user-actions"
+
 import Routes from "./routes/Routes";
 import { GlobalStyles } from "./styles/GlobalStyles";
-import UserModal from './components/userModal/UserModal';
+
 import { auth, createUserProfileDocument } from "./firebase/firebase-utils";
 import { onSnapshot } from "firebase/firestore";
 import { useDispatch } from "react-redux";
 import { onAuthStateChanged } from "firebase/auth";
 import { useEffect } from "react";
 import Footer from "./components/footer/Footer";
+
+import { useRef } from "react";
+
 
 
 function onAuthStateChange(cb, action) {
@@ -28,16 +31,18 @@ function onAuthStateChange(cb, action) {
 function App() {
   const dispatch = useDispatch()
  useEffect(() => {
-  const unsuscribe = onAuthStateChange(dispatch, userActions.setCurrentUser);
+  
  
    return () => {
-    unsuscribe();
+
    }
  }, [dispatch])
  
+ const productsRef = useRef();
   return (
     <>
-      <UserModal />
+      
+
       <GlobalStyles />
       <Routes />
       <Footer/>
